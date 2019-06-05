@@ -24,7 +24,7 @@ $(LIB): $(DEP)
 
 $(APPS): $(LIB) 
 	@echo Building $@
-	@$(CC) $(CFLAGS) -o objects/$@.o applications/$@.c WS2812/$^.c
+	@$(CC) $(CFLAGS) -o objects/$@.o application/$@.c WS2812/$^.c
 	@avr-size objects/$@.o
 	@avr-objcopy -j .text  -j .data -O ihex objects/$@.o $@.hex
 	@avr-objdump -d -S objects/$@.o >objects/$@.lss
