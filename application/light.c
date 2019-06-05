@@ -152,7 +152,7 @@ void rotate (void)
         // check if time to shift colours
         if (cnt == 0) {
                 // delay before changing colours
-                //_delay_ms(250);
+                _delay_ms(250);
                 // reset counter
                 cnt = 130;
                 // change colour base-index
@@ -187,7 +187,7 @@ void rotate (void)
         // decrease colour fading counter
         cnt--;
         // insert fading delay
-        _delay_ms(4);
+        _delay_ms(8);
 }
 
 int main(void)
@@ -225,7 +225,7 @@ int main(void)
                 // push data to LEDs
                 ws2812_sendarray((uint8_t *)leds, 54);
 
-                if (step == 8192) {
+                if (step == 48000) {
                         // reset step counter
                         step = 0;
                         // change mode of operation
