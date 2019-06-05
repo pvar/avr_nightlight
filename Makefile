@@ -4,10 +4,10 @@
 F_CPU = 20000000
 DEVICE = attiny2313
 
-CC	= avr-gcc
-LIB	= ws2812
-APPS	= rainbow light
-DEP	= ws2812_config.h WS2812/ws2812.h
+CC   = avr-gcc
+LIB  = ws2812
+APPS = light
+DEP  = ws2812_config.h WS2812/ws2812.h
 
 CFLAGS = -g2 -I. -IWS2812 -mmcu=$(DEVICE) -DF_CPU=$(F_CPU) 
 CFLAGS+= -Os -ffunction-sections -fdata-sections -fpack-struct -fno-move-loop-invariants -fno-tree-scev-cprop -fno-inline-small-functions  
