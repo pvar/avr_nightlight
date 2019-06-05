@@ -8,6 +8,8 @@
 #include <avr/interrupt.h>
 #include "ws2812.h"
 
+#define TIME_TO_CHANGE 65500
+
 // actual colour values on LEDs
 struct cRGB leds[18];
 
@@ -18,7 +20,6 @@ struct cRGB cols[8];
 struct cRGB tmp_col;
 
 uint8_t init;
-
 
 /*
  * Get next window-light
@@ -213,32 +214,27 @@ int main(void)
                 leds[i].b = 0;
         }
 
-        // find a way to randomize timer
-        // get some measurement k
-        // use srand(k)
+        uint16_t step = 1;
+        init = 1;
 
         // loop forever
-        uint16_t step = 0;
-        uint8_t mode = 0;
-        init = 1;
         while(1) {
                 // push data to LEDs
                 ws2812_sendarray((uint8_t *)leds, 54);
 
-                if (step == 48000) {
-                        // reset step counter
-                        step = 0;
-                        // change mode of operation
-                        mode = (mode + 1) & 1;
-                        // perform mode-specific initialization
-                        init = 1;
-                }
-
-                if (mode == 0)
+                if (step < TIME_TO_CHANGE) {
+                        // keep calling "rotate" while step counter is less than TIME_TO_CHANGE
                         rotate();
-                else
+                        step++;
+                } else if (step == TIME_TO_CHANGE) {
+                        // mode will change permanently after this step
+                        // set init, to properly initialize new mode
+                        init = 1;
+                        step++;
+                } else {
+                        // keep calling "window" routine forever
+                        // step counter will never be increased again
                         windows();
-
-                step++;
+                }
         }
 }
