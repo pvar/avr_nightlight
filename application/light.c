@@ -1,7 +1,3 @@
-/*
- * 
- */ 
-
 #include <util/delay.h>
 #include <stdlib.h>
 #include <avr/io.h>
